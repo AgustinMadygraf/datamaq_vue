@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useHighchartsGateway } from "../interface_adapters/gateway/HighchartsGateway"
+import { useHighchartsComposable } from "../interface_adapters/presenter/HighchartsComposable"
 
 const props = defineProps<{ options: Record<string, unknown> }>()
-const { container } = useHighchartsGateway(props.options)
+const { container } = useHighchartsComposable(props.options)
 </script>
 
 <template>

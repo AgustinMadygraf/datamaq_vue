@@ -1,27 +1,16 @@
-import { onMounted, onBeforeUnmount, ref, watch, toRaw } from "vue"
-
-export function useHighchartsGateway(options: Record<string, unknown>) {
-  const container = ref<HTMLDivElement | null>(null)
-  let chart: any
-
-  onMounted(() => {
+export const HighchartsGateway = {
+  createChart(container: HTMLDivElement | null, options: Record<string, unknown>) {
     const H = (window as any).Highcharts
     if (!H) {
       console.error("Highcharts no está cargado. Verificá el <script src='https://code.highcharts.com/highcharts.js'> en index.html.")
-      return
+      return null
     }
-    chart = H.chart(container.value!, toRaw(options))
-  })
-
-  watch(
-    () => options,
-    (opts) => {
-      if (chart && opts) chart.update(toRaw(opts), true, true)
-    },
-    { deep: true }
-  )
-
-  onBeforeUnmount(() => { if (chart) chart.destroy() })
-
-  return { container }
+    return H.chart(container!, options)
+  },
+  updateChart(chart: any, options: Record<string, unknown>) {
+    if (chart && options) chart.update(options, true, true)
+  },
+  destroyChart(chart: any) {
+    if (chart) chart.destroy()
+  }
 }
