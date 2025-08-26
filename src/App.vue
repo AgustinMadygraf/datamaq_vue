@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Chart from "./components/Chart.vue"
+import Dashboard from "./components/Dashboard.vue"
 import { useChartController } from "./interface_adapters/controller/useChartController"
 
 const { title, options, changeXAxis } = useChartController()
@@ -14,9 +15,14 @@ const { title, options, changeXAxis } = useChartController()
         Cambiar ejes (demo)
       </button>
     </div>
-    <div class="card shadow-sm">
+    <div class="card shadow-sm mb-4">
       <div class="card-body">
         <Chart :options="options" />
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <Dashboard />
       </div>
     </div>
   </div>
