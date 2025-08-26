@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useHighchartsComposable } from "../interface_adapters/presenter/HighchartsComposable"
+import { useChartController } from "../interface_adapters/controller/ChartController"
 
 const props = defineProps<{ options: Record<string, unknown> }>()
-const { container } = useHighchartsComposable(props.options)
+const { container } = useChartController(props)
 </script>
 
 <template>

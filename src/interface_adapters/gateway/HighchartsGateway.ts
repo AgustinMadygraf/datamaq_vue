@@ -1,16 +1,13 @@
+import { HighchartsAdapter } from "../../infrastructure/highcharts/HighchartsAdapter"
+
 export const HighchartsGateway = {
   createChart(container: HTMLDivElement | null, options: Record<string, unknown>) {
-    const H = (window as any).Highcharts
-    if (!H) {
-      console.error("Highcharts no está cargado. Verificá el <script src='https://code.highcharts.com/highcharts.js'> en index.html.")
-      return null
-    }
-    return H.chart(container!, options)
+    return HighchartsAdapter.createChart(container, options)
   },
   updateChart(chart: any, options: Record<string, unknown>) {
-    if (chart && options) chart.update(options, true, true)
+    HighchartsAdapter.updateChart(chart, options)
   },
   destroyChart(chart: any) {
-    if (chart) chart.destroy()
+    HighchartsAdapter.destroyChart(chart)
   }
 }
