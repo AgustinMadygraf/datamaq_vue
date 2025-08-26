@@ -1,3 +1,7 @@
+/*
+Path: src/interface_adapters/presenter/HighchartsComposable.ts
+*/
+
 import { ref, onMounted, onBeforeUnmount, watch, toRaw } from "vue"
 import { HighchartsGateway } from "../gateway/HighchartsGateway"
 

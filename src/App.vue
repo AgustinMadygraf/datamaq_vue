@@ -1,4 +1,3 @@
-@'
 <script setup lang="ts">
 import Chart from "./components/Chart.vue"
 import { useChartController } from "./interface_adapters/controller/useChartController"
@@ -22,4 +21,3 @@ const { title, options, changeXAxis } = useChartController()
     </div>
   </div>
 </template>
-`

@@ -1,4 +1,7 @@
-// Adaptador de infraestructura para Highcharts
+/*
+Path: src/infrastructure/HighchartsAdapter.ts
+Adaptador de infraestructura para Highcharts
+*/
 export const HighchartsAdapter = {
   createChart(container: HTMLDivElement | null, options: Record<string, unknown>) {
     const H = (window as any).Highcharts

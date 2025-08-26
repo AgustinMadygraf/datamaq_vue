@@ -1,3 +1,7 @@
+/*
+Path: src/appSetup.ts
+*/
+
 import { ref } from "vue"
 
 export const title = ref("Producción por hora")

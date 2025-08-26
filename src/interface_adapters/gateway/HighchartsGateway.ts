@@ -1,3 +1,7 @@
+/*
+Path: src/interface_adapters/gateway/HighchartsGateway.ts
+*/
+
 import { HighchartsAdapter } from "../../infrastructure/HighchartsAdapter"
 
 export const HighchartsGateway = {

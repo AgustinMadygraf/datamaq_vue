@@ -1,4 +1,7 @@
-// src/use_cases/GetDashboardData.ts
+/*
+Path: src/use_cases/GetDashboardData.ts
+*/
+
 import { fetchDashboardData } from '../interface_adapters/gateway/DashboardApiGateway'
 
 export async function getDashboardData() {

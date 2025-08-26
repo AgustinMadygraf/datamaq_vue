@@ -1,3 +1,7 @@
+/*
+Path: src/interface_adapters/controller/useChartController.ts
+*/
+
 import { ref } from "vue"
 import { formatChartOptions } from "../presenter/ChartPresenter"
 
