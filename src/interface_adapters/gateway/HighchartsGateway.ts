@@ -1,4 +1,4 @@
-import { HighchartsAdapter } from "../../infrastructure/highcharts/HighchartsAdapter"
+import { HighchartsAdapter } from "../../infrastructure/HighchartsAdapter"
 
 export const HighchartsGateway = {
   createChart(container: HTMLDivElement | null, options: Record<string, unknown>) {
