@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useHighcharts } from "../chartSetup"
+import { useHighchartsGateway } from "../interface_adapters/gateway/HighchartsGateway"
 
 const props = defineProps<{ options: Record<string, unknown> }>()
-const { container } = useHighcharts(props.options)
+const { container } = useHighchartsGateway(props.options)
 </script>
 
 <template>
