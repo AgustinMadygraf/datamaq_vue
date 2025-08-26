@@ -12,7 +12,8 @@ export function useChartController() {
       { type: "line", name: "Línea A", data: [120,135,128,142,150] },
       { type: "line", name: "Línea B", data: [100,110,125,130,145] }
     ],
-    credits: { enabled: false }
+    credits: { enabled: false },
+    accessibility: { enabled: false }
   }))
 
   function changeXAxis(newCategories: string[]) {
