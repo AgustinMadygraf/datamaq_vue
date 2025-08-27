@@ -13,8 +13,8 @@ const { dashboard, loading } = useDashboardController()
 </script>
 
 <template>
-  <div class="panel-container">
-    <div class="main-content">
+  <div class="row g-3">
+    <div class="col-12 col-md-8">
       <InfoDisplay
         :velocidad="dashboard?.features?.velocidad_ultima_bpm?.toString() ?? ''"
         :formato="dashboard?.producto?.formato ? `${dashboard.producto.formato.height_mm} X ${dashboard.producto.formato.width_mm} X ${dashboard.producto.formato.gusset_mm}` : ''"
@@ -24,36 +24,8 @@ const { dashboard, loading } = useDashboardController()
       <Dashboard />
       <Botonera />
     </div>
-    <aside class="sidebar">
+    <aside class="col-12 col-md-4">
       <DataMaqInfo />
     </aside>
   </div>
 </template>
-<style scoped>
-.panel-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.main-content {
-  flex: 1;
-}
-.sidebar {
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .panel-container {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-  .main-content {
-    flex: 3;
-  }
-  .sidebar {
-    flex: 1;
-    max-width: 350px;
-    margin-left: 2rem;
-    width: 100%;
-  }
-}
-</style>
