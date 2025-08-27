@@ -1,5 +1,5 @@
 <!--
-Path: src/components/Cabecera.vue
+Path: src/components/InfoDisplay.vue
 -->
 
 <script setup lang="ts">
