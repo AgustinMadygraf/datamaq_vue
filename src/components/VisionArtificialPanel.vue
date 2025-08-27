@@ -7,8 +7,7 @@ import VisionArtificialInfo from "./VisionArtificialInfo.vue"
 </script>
 
 <template>
-  <br>
-  <div class="container-fluid my-4 mt-5">
+  <div>
     <h2>Visión Artificial</h2>
     <VisionArtificialInfo />
   </div>

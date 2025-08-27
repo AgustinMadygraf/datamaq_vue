@@ -9,8 +9,11 @@ import Footer from "./components/Footer.vue"
 
 <template>
   <Header />
-  <div class="container my-4">
-    <router-view />
+  <div class="main-content-scroll">
+    <div class="container my-4">
+      <router-view />
+    </div>
   </div>
   <Footer />
 </template>
+
