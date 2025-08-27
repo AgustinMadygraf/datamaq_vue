@@ -12,6 +12,7 @@ const { dashboard, loading } = useDashboardController()
 </script>
 
 <template>
+  <br>
   <div class="container-fluid my-4 mt-5">
     <InfoDisplay
       :velocidad="dashboard?.features?.velocidad_ultima_bpm?.toString() ?? ''"

@@ -3,7 +3,8 @@ Path: src/components/VisionArtificialPanel.vue
 -->
 
 <template>
-  <div class="container py-4">
+  <br>
+  <div class="container-fluid my-4 mt-5">
     <h2>Visión Artificial</h2>
     <p>Panel de visión artificial.</p>
   </div>

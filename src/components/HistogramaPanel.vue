@@ -1,5 +1,10 @@
+<!--
+Path: src/components/HistogramaPanel.vue
+-->
+
 <template>
-  <div class="container py-4">
+  <br>
+  <div class="container-fluid my-4 mt-5">
     <h2>Histograma</h2>
     <p>Panel de histograma.</p>
   </div>

@@ -11,13 +11,37 @@ Path: src/components/Header.vue
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><router-link class="nav-link" to="/">Gráfico de Producción</router-link></li>
-          <li class="nav-item"><router-link class="nav-link" to="/vision-artificial">Visión Artificial</router-link></li>
-          <li class="nav-item"><router-link class="nav-link" to="/disponibilidad">Disponibilidad</router-link></li>
-          <li class="nav-item"><router-link class="nav-link" to="/rendimiento">Rendimiento</router-link></li>
-          <li class="nav-item"><router-link class="nav-link" to="/histograma">Histograma</router-link></li>
+          <li class="nav-item"><router-link class="nav-link" to="/" @click="closeMenu">Gráfico de Producción</router-link></li>
+          <li class="nav-item"><router-link class="nav-link" to="/vision-artificial" @click="closeMenu">Visión Artificial</router-link></li>
+          <li class="nav-item"><router-link class="nav-link" to="/disponibilidad" @click="closeMenu">Disponibilidad</router-link></li>
+          <li class="nav-item"><router-link class="nav-link" to="/rendimiento" @click="closeMenu">Rendimiento</router-link></li>
+          <li class="nav-item"><router-link class="nav-link" to="/histograma" @click="closeMenu">Histograma</router-link></li>
         </ul>
       </div>
     </div>
   </nav>
 </template>
+
+<script setup>
+import { onMounted } from 'vue';
+
+function closeMenu() {
+  const navbarCollapse = document.getElementById('navbarSupportedContent');
+  if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+    // Bootstrap 5: usa Collapse JS
+    const collapse = window.bootstrap?.Collapse
+      ? window.bootstrap.Collapse.getInstance(navbarCollapse)
+      : null;
+    if (collapse) {
+      collapse.hide();
+    } else {
+      // Fallback: remueve la clase 'show'
+      navbarCollapse.classList.remove('show');
+    }
+  }
+}
+
+onMounted(() => {
+  // Asegura que Bootstrap JS esté disponible
+});
+</script>
