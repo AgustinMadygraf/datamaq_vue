@@ -3,12 +3,16 @@ Path: src/components/Botonera.vue
 -->
 
 <template>
-  <div class="container-fluid py-2 bg-white">
+  <div class="container-fluid py-2 bg-white botonera-container">
     <div class="d-flex flex-wrap justify-content-between align-items-center botonera">
       <!-- Botón: semana anterior -->
       <form action="?periodo=semana&amp;conta=1708010400000" method="post" class="botonI">
         <input type="hidden" name="csrf_token" value="">
-        <input type="submit" value="semana anterior" class="presione">
+        <button type="submit" class="presione fs-6 w-100 h-100 d-flex align-items-center justify-content-center text-center">
+          <span>
+            Semana <br class="d-md-none" /> anterior
+          </span>
+        </button>
       </form>
       <div class="spacer"></div>
       <!-- Botón: semana -->
@@ -30,7 +34,11 @@ Path: src/components/Botonera.vue
       <!-- Botón: semana siguiente -->
       <form action="?periodo=semana&amp;conta=1709220000000" method="post" class="botonD">
         <input type="hidden" name="csrf_token" value="">
-        <input type="submit" value="semana siguiente" class="presione">
+        <button type="submit" class="presione fs-6 w-100 h-100 d-flex align-items-center justify-content-center text-center">
+          <span>
+            Semana <br class="d-md-none" /> siguiente
+          </span>
+        </button>
       </form>
       <!-- Botón: fin -->
       <form action="?periodo=semana" method="post" class="fin">
