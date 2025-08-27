@@ -2,17 +2,14 @@
 Path: src/components/VisionArtificialPanel.vue
 -->
 
+<script setup>
+import VisionArtificialInfo from "./VisionArtificialInfo.vue"
+</script>
+
 <template>
   <br>
   <div class="container-fluid my-4 mt-5">
     <h2>Visión Artificial</h2>
-    <p>Panel de visión artificial.</p>
+    <VisionArtificialInfo />
   </div>
 </template>
-
-<script setup>
-// Puedes agregar lógica aquí
-</script>
-
-<style scoped>
-</style>

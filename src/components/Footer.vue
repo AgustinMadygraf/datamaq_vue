@@ -1,3 +1,7 @@
+<!--
+Path: src/components/Footer.vue
+-->
+
 <template>
   <footer class="footer bg-dark text-light py-3 mt-4 fixed-bottom">
     <div class="container-fluid text-center">

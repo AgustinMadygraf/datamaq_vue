@@ -1,3 +1,7 @@
+<!--
+Path: src/components/Chart.vue
+-->
+
 <script setup lang="ts">
 import { useChartController } from "../interface_adapters/controller/ChartController"
 

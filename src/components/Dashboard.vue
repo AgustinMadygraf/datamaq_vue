@@ -1,3 +1,7 @@
+<!--
+Path: src/components/Dashboard.vue
+-->
+
 <script setup lang="ts">
 import { useDashboardController } from "../interface_adapters/controller/DashboardController"
 import Chart from "./Chart.vue"

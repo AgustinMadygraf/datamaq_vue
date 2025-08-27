@@ -6,6 +6,7 @@ Path: src/components/DataMaqPanel.vue
 import InfoDisplay from "./InfoDisplay.vue"
 import Dashboard from "./Dashboard.vue"
 import Botonera from "./Botonera.vue"
+import DataMaqInfo from "./DataMaqInfo.vue"
 import { useDashboardController } from "../interface_adapters/controller/DashboardController"
 
 const { dashboard, loading } = useDashboardController()
@@ -22,5 +23,6 @@ const { dashboard, loading } = useDashboardController()
     />
     <Dashboard />
     <Botonera />
+    <DataMaqInfo />
   </div>
 </template>
