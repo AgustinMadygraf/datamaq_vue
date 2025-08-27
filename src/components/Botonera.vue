@@ -45,7 +45,7 @@
 
 <style scoped>
 .botonera {
-  width: 100%;
+  width: 99%;
   margin: 0;
   background-color: white;
   padding: 10px;

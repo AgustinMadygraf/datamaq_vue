@@ -1,0 +1,47 @@
+<!--
+Path: src/components/Cabecera.vue
+-->
+
+<script setup lang="ts">
+// Props para los datos dinámicos
+const props = defineProps<{
+  velocidad: string
+  formato: string
+  anchoBobina: string
+}>()
+</script>
+
+<template>
+  <div class="cabecera">
+    <div class="c1">
+      <p2>Velocidad {{ props.velocidad }} unidades por minuto</p2>
+      <p1>Formato {{ props.formato }}</p1>
+      <p2 style="background-color: transparent;">Ancho Bobina {{ props.anchoBobina }}mm</p2>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.cabecera {
+  background-color: rgba(240,240,240,.5);
+  margin-bottom: 0.3em;
+  position: relative;
+  padding: 15px;
+  border-radius: 10px;
+}
+.c1 {
+  text-align: center;
+  font-family: verdana;
+  padding-top: 5px;
+}
+p2 {
+  font-size: 28pt;
+  margin: 0;
+  display: block;
+}
+p1 {
+  font-size: 34pt;
+  padding-bottom: 5px;
+  display: block;
+}
+</style>
