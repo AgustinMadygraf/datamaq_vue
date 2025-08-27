@@ -3,11 +3,11 @@ Path: src/components/Cabecera.vue
 -->
 
 <script setup lang="ts">
-// Props para los datos dinámicos
 const props = defineProps<{
   velocidad: string
   formato: string
   anchoBobina: string
+  loading?: boolean
 }>()
 </script>
 
