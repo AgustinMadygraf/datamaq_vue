@@ -12,7 +12,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="cabecera">
+  <div class="info_display">
     <div class="c1">
       <p2>Velocidad {{ props.velocidad }} unidades por minuto</p2>
       <p1>Formato {{ props.formato }}</p1>
@@ -22,12 +22,15 @@ const props = defineProps<{
 </template>
 
 <style scoped>
-.cabecera {
+.info_display {
   background-color: rgba(240,240,240,.5);
   margin-bottom: 0.3em;
   position: relative;
   padding: 15px;
   border-radius: 10px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 .c1 {
   text-align: center;
