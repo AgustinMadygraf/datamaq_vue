@@ -14,9 +14,9 @@ const props = defineProps<{
 <template>
   <div class="info_display">
     <div class="c1">
-      <p2>Velocidad {{ props.velocidad }} unidades por minuto</p2>
-      <p1>Formato {{ props.formato }}</p1>
-      <p2 style="background-color: transparent;">Ancho Bobina {{ props.anchoBobina }}mm</p2>
+  <p class="p2">Velocidad {{ props.velocidad }} unidades por minuto</p>
+  <p class="p1">Formato {{ props.formato }}</p>
+  <p class="p2" style="background-color: transparent;">Ancho Bobina {{ props.anchoBobina }}mm</p>
     </div>
   </div>
 </template>
@@ -37,12 +37,12 @@ const props = defineProps<{
   font-family: verdana;
   padding-top: 5px;
 }
-p2 {
+.p2 {
   font-size: 28pt;
   margin: 0;
   display: block;
 }
-p1 {
+.p1 {
   font-size: 34pt;
   padding-bottom: 5px;
   display: block;
