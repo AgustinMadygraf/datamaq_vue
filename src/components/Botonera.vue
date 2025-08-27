@@ -1,12 +1,10 @@
-<script setup lang="ts">
-// Aquí podrías definir props para periodo, fechas, estados, etc.
-// Por ejemplo:
-// defineProps<{ buttons: Array<{ label: string, action: string, active?: boolean }> }>()
-</script>
+<!--
+Path: src/components/Botonera.vue
+-->
 
 <template>
-  <div class="botonera-container">
-    <div class="botonera">
+  <div class="container-fluid py-2 bg-white">
+    <div class="d-flex flex-wrap justify-content-between align-items-center botonera">
       <!-- Botón: semana anterior -->
       <form action="?periodo=semana&amp;conta=1708010400000" method="post" class="botonI">
         <input type="hidden" name="csrf_token" value="">
@@ -50,6 +48,10 @@
   background-color: white;
   padding: 10px;
 }
+/*
+  Los estilos de los botones y la distribución de la botonera deben mantenerse y personalizarse aquí en CSS.
+  No migrar los estilos de los botones a Bootstrap si se requiere un diseño específico.
+*/
 .periodo, .botonI, .botonD, .spacer, .fin {
   display: inline-block;
   height: 55px;
