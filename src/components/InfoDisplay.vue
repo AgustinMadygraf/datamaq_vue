@@ -12,39 +12,17 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="info_display">
-    <div class="c1">
-  <p class="p2">Velocidad {{ props.velocidad }} unidades por minuto</p>
-  <p class="p1">Formato {{ props.formato }}</p>
-  <p class="p2" style="background-color: transparent;">Ancho Bobina {{ props.anchoBobina }}mm</p>
+  <div class="card my-3 custom-bg">
+    <div class="card-body text-center rounded">
+      <p class="fs-1 mb-0">Velocidad {{ props.velocidad }} unidades por minuto</p>
+      <p class="fs-1 mb-0">Formato {{ props.formato }}</p>
+      <p class="fs-1 mb-0">Ancho Bobina {{ props.anchoBobina }}mm</p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.info_display {
-  background-color: rgba(240,240,240,.5);
-  margin-bottom: 0.3em;
-  position: relative;
-  padding: 15px;
-  border-radius: 10px;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-}
-.c1 {
-  text-align: center;
-  font-family: verdana;
-  padding-top: 5px;
-}
-.p2 {
-  font-size: 28pt;
-  margin: 0;
-  display: block;
-}
-.p1 {
-  font-size: 34pt;
-  padding-bottom: 5px;
-  display: block;
+.custom-bg {
+  background-color: rgba(240, 240, 240, .5);
 }
 </style>
