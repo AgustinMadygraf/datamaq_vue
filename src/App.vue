@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import Dashboard from "./components/Dashboard.vue"
+import Botonera from "./components/Botonera.vue"
 </script>
 
 <template>
   <div class="container my-4">
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <Dashboard />
-      </div>
+    <div class="cabecera">
+
     </div>
+  <Dashboard />
+  <Botonera />
   </div>
 </template>
