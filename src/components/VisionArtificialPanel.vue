@@ -3,7 +3,7 @@ Path: src/components/VisionArtificialPanel.vue
 -->
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import VisionArtificialInfo from "./VisionArtificialInfo.vue"
 
 const streams = ref([])
@@ -12,6 +12,7 @@ const streamUrl = ref('')
 const snapshotUrl = ref('')
 const loading = ref(false)
 const error = ref('')
+const usarFiltro = ref(true) // switch para filtro
 
 // Obtiene la lista de streams disponibles
 async function fetchStreams() {
@@ -55,9 +56,8 @@ async function fetchStreams() {
 
 function getStreamUrl(stream) {
   if (!stream) return ''
-  // Construye la URL MJPEG según tipo e índice
-  //const url = `http://localhost:5001/api/computer_vision/${stream.tipo}/${stream.index}/stream_original.mjpg`
-  const url = `http://localhost:5001/api/computer_vision/${stream.tipo}/${stream.index}/stream_filtro.mjpg`
+  const tipoStream = usarFiltro.value ? 'stream_filtro.mjpg' : 'stream_original.mjpg'
+  const url = `http://localhost:5001/api/computer_vision/${stream.tipo}/${stream.index}/${tipoStream}`
   console.log('URL del stream:', url)
   return url
 }
@@ -68,6 +68,11 @@ function selectStream(stream) {
   snapshotUrl.value = ''
   console.log('Stream seleccionado:', stream)
 }
+
+// Actualiza el streamUrl cuando cambia el switch de filtro
+watch([selectedStream, usarFiltro], ([stream]) => {
+  streamUrl.value = getStreamUrl(stream)
+})
 
 async function takeSnapshot() {
   if (!selectedStream.value) return
@@ -123,6 +128,10 @@ onMounted(fetchStreams)
       <div v-if="streamUrl">
         <h3>Stream</h3>
         <img :src="streamUrl" alt="Stream" style="max-width: 100%; border: 1px solid #ccc;" />
+        <div class="form-check form-switch mt-2">
+          <input class="form-check-input" type="checkbox" id="filtro-switch" v-model="usarFiltro">
+          <label class="form-check-label" for="filtro-switch">Filtro amarillo</label>
+        </div>
       </div>
       <button @click="takeSnapshot" :disabled="loading || !selectedStream">Tomar Snapshot</button>
       <div v-if="snapshotUrl">
