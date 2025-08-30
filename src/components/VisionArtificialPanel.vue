@@ -56,7 +56,7 @@ async function fetchStreams() {
 
 function getStreamUrl(stream) {
   if (!stream) return ''
-  const tipoStream = usarFiltro.value ? 'stream_filtro.mjpg' : 'stream_original.mjpg'
+  const tipoStream = usarFiltro.value ? 'filtro/stream.mjpg' : 'original/stream.mjpg'
   const url = `http://localhost:5001/api/computer_vision/${stream.tipo}/${stream.index}/${tipoStream}`
   console.log('URL del stream:', url)
   return url
