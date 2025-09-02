@@ -5,6 +5,9 @@ Path: src/components/VisionArtificialPanel.vue
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import VisionArtificialInfo from "./VisionArtificialInfo.vue"
+import { VisionArtificialController } from '../../interface_adapters/controller/VisionArtificialController'
+
+const controller = new VisionArtificialController()
 
 const streams = ref([])
 const selectedStream = ref(null)
@@ -14,35 +17,12 @@ const loading = ref(false)
 const error = ref('')
 const usarFiltro = ref(true) // switch para filtro
 
-// Obtiene la lista de streams disponibles
+// Obtiene la lista de streams disponibles usando el controlador
 async function fetchStreams() {
   loading.value = true
   error.value = ''
   try {
-  const res = await fetch('http://localhost:5001/api/computer_vision/streams')
-    if (!res.ok) {
-      console.warn('Respuesta no OK al obtener streams:', res)
-      throw new Error('No se pudo obtener la lista de streams')
-    }
-    const text = await res.text()
-    // Detecta si la respuesta es HTML (error backend)
-    if (text.trim().startsWith('<')) {
-      console.error('Respuesta inesperada (HTML) al obtener streams:', text)
-      throw new Error('Respuesta inesperada del backend (¿está corriendo en el puerto correcto?)')
-    }
-    let data
-    try {
-      data = JSON.parse(text)
-    } catch (jsonErr) {
-      console.error('Error al parsear JSON de streams:', jsonErr, text)
-      throw new Error('Respuesta inválida del backend (no es JSON)')
-    }
-    streams.value = [
-      ...data.usb.map(s => ({ ...s, tipo: 'usb' })),
-      ...data.wifi.map(s => ({ ...s, tipo: 'wifi' })),
-      ...data.img.map(s => ({ ...s, tipo: 'img' }))
-    ]
-    console.log('Streams obtenidos:', streams.value)
+    streams.value = await controller.getStreams()
     if (streams.value.length > 0) {
       selectStream(streams.value[0])
     }
@@ -55,18 +35,13 @@ async function fetchStreams() {
 }
 
 function getStreamUrl(stream) {
-  if (!stream) return ''
-  const tipoStream = usarFiltro.value ? 'filtro/stream.mjpg' : 'original/stream.mjpg'
-  const url = `http://localhost:5001/api/computer_vision/${stream.tipo}/${stream.index}/${tipoStream}`
-  console.log('URL del stream:', url)
-  return url
+  return controller.getStreamUrl(stream, usarFiltro.value)
 }
 
 function selectStream(stream) {
   selectedStream.value = stream
   streamUrl.value = getStreamUrl(stream)
   snapshotUrl.value = ''
-  console.log('Stream seleccionado:', stream)
 }
 
 // Actualiza el streamUrl cuando cambia el switch de filtro
@@ -79,28 +54,7 @@ async function takeSnapshot() {
   loading.value = true
   error.value = ''
   try {
-  const url = `http://localhost:5001/api/computer_vision/${selectedStream.value.tipo}/${selectedStream.value.index}/snapshot.jpg`
-    const res = await fetch(url)
-    if (!res.ok) {
-      console.warn('Respuesta no OK al tomar snapshot:', res)
-      if (res.status === 503) {
-        error.value = 'No se pudo capturar frame (cámara no disponible)'
-      } else {
-        error.value = 'Error al tomar snapshot'
-      }
-      return
-    }
-    // Detecta si la respuesta es HTML (error backend)
-    const contentType = res.headers.get('content-type')
-    if (contentType && contentType.includes('text/html')) {
-      const text = await res.text()
-      console.error('Respuesta inesperada (HTML) al tomar snapshot:', text)
-      error.value = 'Respuesta inesperada del backend al tomar snapshot'
-      return
-    }
-    const blob = await res.blob()
-    snapshotUrl.value = URL.createObjectURL(blob)
-    console.log('Snapshot capturado:', snapshotUrl.value)
+    snapshotUrl.value = await controller.takeSnapshot(selectedStream.value)
   } catch (e) {
     error.value = e.message
     console.error('Error en takeSnapshot:', e)

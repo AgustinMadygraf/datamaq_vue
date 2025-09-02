@@ -4,12 +4,18 @@ Estoy trabajando en un proyecto que intenta seguir la Clean Architecture, detall
 
 ### Situación actual del proyecto:
 - Se están utilizando los siguientes directorios como base:
-  - entities/
-  - use_cases/
-  - interface_adapters/presenter/
-  - interface_adapters/gateway/
-  - interface_adapters/controllers/
-  - infrastructure/
+  - src/entities/
+  - src/use_cases/
+  - src/interface_adapters/presenter/
+  - src/interface_adapters/gateway/
+  - src/interface_adapters/controllers/
+  - src/infrastructure/
+  - src/components/disponibilidad/
+  - src/components/histograma/
+  - src/components/produccion/
+  - src/components/rendimiento/
+  - src/components/shared/
+  - src/components/vision-artificial/
 
 ### Objetivo:
 - Confirmar que los archivos dentro de las carpetas `entities/`, `use_cases/`, `interface_adapters/presenter/`, `interface_adapters/gateway/`, `interface_adapters/controllers/` y `infrastructure/` estén correctamente organizados y alineados con los principios de Clean Architecture.
