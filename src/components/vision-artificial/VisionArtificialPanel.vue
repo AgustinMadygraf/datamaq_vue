@@ -130,7 +130,7 @@ onMounted(fetchStreams)
           <img :src="streamUrl" alt="Stream" class="img-fluid border mb-2" />
           <div class="form-check form-switch mt-2">
             <input class="form-check-input" type="checkbox" id="filtro-switch" v-model="usarFiltro">
-            <label class="form-check-label" for="filtro-switch">Filtro amarillo</label>
+            <label class="form-check-label" for="filtro-switch">Filtro</label>
           </div>
         </div>
         <button @click="takeSnapshot" :disabled="loading || !selectedStream" class="btn btn-primary mt-2">Tomar Snapshot</button>
