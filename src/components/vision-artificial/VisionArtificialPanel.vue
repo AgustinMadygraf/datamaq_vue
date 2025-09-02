@@ -113,32 +113,36 @@ onMounted(fetchStreams)
 </script>
 
 <template>
-  <div>
-    <h2>Visión Artificial</h2>
-    <VisionArtificialInfo />
-    <div v-if="loading">Cargando...</div>
-    <div v-if="error" style="color: red;">{{ error }}</div>
-    <div v-if="streams.length > 0">
-      <label for="stream-select">Fuente:</label>
-      <select id="stream-select" v-model="selectedStream" @change="selectStream(selectedStream)">
-        <option v-for="s in streams" :key="s.tipo + '-' + s.index" :value="s">
-          {{ s.name || s.tipo + ' ' + s.index }}
-        </option>
-      </select>
-      <div v-if="streamUrl">
-        <h3>Stream</h3>
-        <img :src="streamUrl" alt="Stream" style="max-width: 100%; border: 1px solid #ccc;" />
-        <div class="form-check form-switch mt-2">
-          <input class="form-check-input" type="checkbox" id="filtro-switch" v-model="usarFiltro">
-          <label class="form-check-label" for="filtro-switch">Filtro amarillo</label>
+  <div class="row g-3">
+    <div class="col-12 col-md-8">
+      <h2>Visión Artificial</h2>
+      <div v-if="loading">Cargando...</div>
+      <div v-if="error" style="color: red;">{{ error }}</div>
+      <div v-if="streams.length > 0">
+        <label for="stream-select">Fuente:</label>
+        <select id="stream-select" v-model="selectedStream" @change="selectStream(selectedStream)" class="form-select mb-2">
+          <option v-for="s in streams" :key="s.tipo + '-' + s.index" :value="s">
+            {{ s.name || s.tipo + ' ' + s.index }}
+          </option>
+        </select>
+        <div v-if="streamUrl">
+          <h3>Stream</h3>
+          <img :src="streamUrl" alt="Stream" class="img-fluid border mb-2" />
+          <div class="form-check form-switch mt-2">
+            <input class="form-check-input" type="checkbox" id="filtro-switch" v-model="usarFiltro">
+            <label class="form-check-label" for="filtro-switch">Filtro amarillo</label>
+          </div>
+        </div>
+        <button @click="takeSnapshot" :disabled="loading || !selectedStream" class="btn btn-primary mt-2">Tomar Snapshot</button>
+        <div v-if="snapshotUrl">
+          <h3>Snapshot</h3>
+          <img :src="snapshotUrl" alt="Snapshot" class="img-fluid border" />
         </div>
       </div>
-      <button @click="takeSnapshot" :disabled="loading || !selectedStream">Tomar Snapshot</button>
-      <div v-if="snapshotUrl">
-        <h3>Snapshot</h3>
-        <img :src="snapshotUrl" alt="Snapshot" style="max-width: 100%; border: 1px solid #ccc;" />
-      </div>
+      <div v-else-if="!loading && !error">No hay streams disponibles.</div>
     </div>
-    <div v-else-if="!loading && !error">No hay streams disponibles.</div>
+    <aside class="col-12 col-md-4">
+      <VisionArtificialInfo />
+    </aside>
   </div>
 </template>

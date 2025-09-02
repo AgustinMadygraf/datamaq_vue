@@ -15,11 +15,15 @@ const chartOptions = computed(() => histogram.value ? presentHistogram(histogram
 </script>
 
 <template>
-  <div>
-    <h2>Histograma</h2>
-    <HistogramaInfo />
-    <div v-if="loading">Cargando...</div>
-    <div v-else-if="error">Error: {{ error }}</div>
-    <Chart v-else-if="chartOptions" :options="chartOptions" />
+  <div class="row g-3">
+    <div class="col-12 col-md-8">
+      <h2>Histograma</h2>
+      <div v-if="loading">Cargando...</div>
+      <div v-else-if="error">Error: {{ error }}</div>
+      <Chart v-else-if="chartOptions" :options="chartOptions" />
+    </div>
+    <aside class="col-12 col-md-4">
+      <HistogramaInfo />
+    </aside>
   </div>
 </template>
