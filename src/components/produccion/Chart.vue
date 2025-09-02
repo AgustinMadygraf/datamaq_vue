@@ -1,5 +1,5 @@
 <!--
-Path: src/components/Chart.vue
+Path: src/components/produccion/Chart.vue
 -->
 
 <script setup lang="ts">

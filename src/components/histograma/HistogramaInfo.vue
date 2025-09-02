@@ -1,5 +1,5 @@
 <!--
-Path: src/components/HistogramaInfo.vue
+Path: src/components/histograma/HistogramaInfo.vue
 -->
 
 <template>

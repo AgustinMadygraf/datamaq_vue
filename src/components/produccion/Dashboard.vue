@@ -1,5 +1,5 @@
 <!--
-Path: src/components/Dashboard.vue
+Path: src/components/produccion/Dashboard.vue
 -->
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <!--
-Path: src/components/DataMaqPanel.vue
+Path: src/components/produccion/DataMaqPanel.vue
 -->
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <!--
-Path: src/components/HistogramaPanel.vue
+Path: src/components/histograma/HistogramaPanel.vue
 -->
 
 <script setup>
