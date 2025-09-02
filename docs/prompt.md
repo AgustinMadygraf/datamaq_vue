@@ -8,7 +8,7 @@ Estoy trabajando en un proyecto que intenta seguir la Clean Architecture, detall
   - src/use_cases/
   - src/interface_adapters/presenter/
   - src/interface_adapters/gateway/
-  - src/interface_adapters/controllers/
+  - src/interface_adapters/controller/
   - src/infrastructure/
   - src/components/disponibilidad/
   - src/components/histograma/
@@ -18,7 +18,7 @@ Estoy trabajando en un proyecto que intenta seguir la Clean Architecture, detall
   - src/components/vision-artificial/
 
 ### Objetivo:
-- Confirmar que los archivos dentro de las carpetas `entities/`, `use_cases/`, `interface_adapters/presenter/`, `interface_adapters/gateway/`, `interface_adapters/controllers/` y `infrastructure/` estén correctamente organizados y alineados con los principios de Clean Architecture.
+- Confirmar que los archivos dentro de las carpetas `entities/`, `use_cases/`, `interface_adapters/presenter/`, `interface_adapters/gateway/`, `interface_adapters/controller/` y `infrastructure/` estén correctamente organizados y alineados con los principios de Clean Architecture.
   - Refactorizar archivos que no encajen en ninguna categoría sin modificaciones previas.
   - Eliminar duplicados o archivos innecesarios.
 
