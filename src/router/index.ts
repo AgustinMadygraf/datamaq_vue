@@ -3,7 +3,7 @@ Path: src/router/index.ts
 */
 
 import { createRouter, createWebHistory } from 'vue-router';
-import DataMaqPanel from '../components/DataMaqPanel.vue';
+import DataMaqPanel from '../components/produccion/DataMaqPanel.vue';
 import DisponibilidadPanel from '../components/disponibilidad//DisponibilidadPanel.vue';
 import RendimientoPanel from '../components/rendimiento/RendimientoPanel.vue';
 import HistogramaPanel from '../components/histograma/HistogramaPanel.vue';

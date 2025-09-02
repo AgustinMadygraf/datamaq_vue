@@ -7,8 +7,8 @@ import InfoDisplay from "./InfoDisplay.vue"
 import Dashboard from "./Dashboard.vue"
 import Botonera from "./Botonera.vue"
 import DataMaqInfo from "./DataMaqInfo.vue"
-import { useDashboardController } from "../interface_adapters/controller/DashboardController"
-import { getInfoDisplayProps } from "../interface_adapters/presenter/DataMaqPanelPresenter"
+import { useDashboardController } from "../../interface_adapters/controller/DashboardController"
+import { getInfoDisplayProps } from "../../interface_adapters/presenter/DataMaqPanelPresenter"
 
 const { dashboard, loading } = useDashboardController()
 // Aseguro que infoDisplayProps sea un computed
