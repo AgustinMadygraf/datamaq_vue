@@ -3,14 +3,16 @@ Path: src/components/disponibilidad//DisponibilidadPanel.vue
 -->
 
 <template>
-  <div>
-    <h2>Disponibilidad</h2>
-    <div v-if="loading">Cargando...</div>
-    <div v-else-if="error">Error: {{ error }}</div>
-    <div v-else>
+  <div class="row g-3">
+    <div class="col-12 col-md-8">
+      <h2>Disponibilidad</h2>
+      <div v-if="loading">Cargando...</div>
+      <div v-else-if="error">Error: {{ error }}</div>
       <highcharts :options="chartOptions" v-if="chartOptions" />
-      <DisponibilidadInfo />
     </div>
+    <aside class="col-12 col-md-4">
+      <DisponibilidadInfo />
+    </aside>
   </div>
 </template>
 
@@ -22,7 +24,3 @@ import HighchartsVue from 'highcharts-vue'
 
 const { chartOptions, loading, error } = useDisponibilidadController()
 </script>
-
-<style scoped>
-/* Puedes agregar estilos personalizados aquí */
-</style>
