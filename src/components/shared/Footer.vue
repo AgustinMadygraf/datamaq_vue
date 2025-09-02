@@ -1,5 +1,5 @@
 <!--
-Path: src/components/Footer.vue
+Path: src/components/shared/Footer.vue
 -->
 
 <template>

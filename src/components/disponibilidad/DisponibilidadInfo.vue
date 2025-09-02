@@ -1,5 +1,5 @@
 <!--
-Path: src/components/DisponibilidadInfo.vue
+Path: src/components/disponibilidad/DisponibilidadInfo.vue
 -->
 
 <template>

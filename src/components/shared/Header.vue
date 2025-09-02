@@ -1,5 +1,5 @@
 <!--
-Path: src/components/Header.vue
+Path: src/components/shared/Header.vue
 -->
 
 <script setup>
