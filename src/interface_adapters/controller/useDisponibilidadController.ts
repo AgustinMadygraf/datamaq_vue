@@ -1,17 +1,18 @@
 /*
+Path: src/interface_adapters/controller/useDisponibilidadController.ts
 Composable/controller para manejar el estado, la carga y los errores de disponibilidad.
-Ubicación: src/interface_adapters/controller/useDisponibilidadController.ts
 */
 
 
 import { ref, onMounted } from "vue"
 import { GetDisponibilidadData } from "../../use_cases/GetDisponibilidadData"
-import { presentDisponibilidad } from "../presenter/DisponibilidadPresenter"
+import { presentDisponibilidadDonut, presentRazonesStacked } from "../presenter/DisponibilidadPresenter"
 import type { Disponibilidad } from "../../entities/Disponibilidad"
 
-export function useDisponibilidadController() {
+export function useDisponibilidadController(params?: { from?: string; to?: string }) {
   const disponibilidad = ref<Disponibilidad | undefined>(undefined)
-  const chartOptions = ref<any | undefined>(undefined)
+  const chartDonut = ref<any | undefined>(undefined)
+  const chartRazones = ref<any | undefined>(undefined)
   const loading = ref(true)
   const error = ref<string | undefined>(undefined)
 
@@ -19,9 +20,10 @@ export function useDisponibilidadController() {
     loading.value = true
     error.value = undefined
     try {
-      const data = await GetDisponibilidadData()
+      const data = await GetDisponibilidadData(params)
       disponibilidad.value = data
-      chartOptions.value = presentDisponibilidad(data)
+      chartDonut.value = presentDisponibilidadDonut(data)
+      chartRazones.value = presentRazonesStacked(data)
     } catch (e) {
       error.value = e instanceof Error ? e.message : String(e)
     } finally {
@@ -31,11 +33,5 @@ export function useDisponibilidadController() {
 
   onMounted(fetchData)
 
-  return {
-    disponibilidad,
-    chartOptions,
-    loading,
-    error,
-    fetchData,
-  }
+  return { disponibilidad, chartDonut, chartRazones, loading, error, fetchData }
 }
