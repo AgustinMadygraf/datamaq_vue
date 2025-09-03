@@ -6,10 +6,9 @@ Presentador para adaptar los datos del histograma al formato requerido por el co
 import type { Histogram } from '../../entities/Histogram'
 
 export function presentHistogram(histogram: Histogram) {
-  // Ejemplo: adaptar a formato Highcharts
   return {
     chart: {
-      type: 'column',
+      type: 'line',
       backgroundColor: '#fff'
     },
     title: {
@@ -17,11 +16,21 @@ export function presentHistogram(histogram: Histogram) {
     },
     xAxis: {
       categories: histogram.bins.map(bin => bin.label),
-      title: { text: 'Categoría' }
+      title: { text: 'Bolsas por minuto' }
     },
     yAxis: {
-      min: 0,
-      title: { text: 'Valor' }
+      min: 1,
+      type: 'logarithmic', // Escala logarítmica base 10
+      title: { text: 'Tiempo (min, escala log₁₀)' },
+      labels: {
+        formatter: function (this: Highcharts.AxisLabelsFormatterContextObject): string | number {
+          // Muestra valores legibles para minutos, horas, días
+          if (this.value === 1) return '1 min'
+          if (this.value === 60) return '1 h'
+          if (this.value === 1440) return '1 día'
+          return this.value
+        }
+      }
     },
     series: [
       {

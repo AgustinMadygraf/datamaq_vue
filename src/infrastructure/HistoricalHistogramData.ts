@@ -10,11 +10,17 @@ export const historicalHistogramData = {
     fuente: 'local'
   },
   bins: [
-    { label: '0-10', value: 5 },
-    { label: '11-20', value: 12 },
-    { label: '21-30', value: 8 },
-    { label: '31-40', value: 3 },
-    { label: '41-50', value: 1 }
+    { label: '0', value: 43665 },
+    { label: '1-5', value: 550 },
+    { label: '5-11', value: 165 },
+    { label: '10-15', value: 70 },
+    { label: '15-20', value: 60 },
+    { label: '20-25', value: 95 },
+    { label: '25-30', value: 75 },
+    { label: '30-35', value: 55 },
+    { label: '35-40', value: 60 },
+    { label: '40-45', value: 5 },
+    { label: '50-55', value: 5 }
   ],
   features: [
     { key: 'máquina', value: 'A1' },
