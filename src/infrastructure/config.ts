@@ -9,3 +9,5 @@ export const API_ENDPOINTS = {
   DISPONIBILIDAD: '/datamaq_php/backend/api/v1/disponibilidad.php',
   // Agrega aquí otros endpoints si es necesario
 }
+
+export const VISION_ARTIFICIAL_API_URL = 'http://192.168.3.207:5001/api/computer_vision';

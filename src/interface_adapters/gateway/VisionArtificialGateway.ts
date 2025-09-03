@@ -1,6 +1,7 @@
 // src/interface_adapters/gateway/VisionArtificialGateway.ts
 // Gateway para comunicación con la API de visión artificial
 import type { VisionStream } from '../../entities/VisionStream';
+import { VISION_ARTIFICIAL_API_URL } from '../../infrastructure/config';
 
 export interface VisionStreamsResponse {
   usb: VisionStream[];
@@ -9,7 +10,7 @@ export interface VisionStreamsResponse {
 }
 
 export class VisionArtificialGateway {
-  private baseUrl = 'http://localhost:5001/api/computer_vision';
+  private baseUrl = VISION_ARTIFICIAL_API_URL;
 
   async fetchStreams(): Promise<VisionStream[]> {
     const res = await fetch(`${this.baseUrl}/streams`);
