@@ -10,7 +10,8 @@ export const DisponibilidadSampleData: Disponibilidad = {
   minutes: {
     operating: 315,
     plannedDowntime: 85,
-    unplannedDowntime: 80
+    unplannedDowntime: 80,
+    unclassifiedDowntime: 20 // ejemplo de minutos sin clasificar
   },
   availability: 315 / 480,
   breakdown: {
@@ -26,11 +27,13 @@ export const DisponibilidadSampleData: Disponibilidad = {
       FALTA_DOTACION: 5,
       ESPERA_CALIDAD: 10,
       CORTE_ENERGIA: 5
-    }
+    },
+    unclassified: 20 // ejemplo de breakdown sin clasificar
   },
   events: [
     { start: "2025-09-02T07:10:00-03:00", end: "2025-09-02T07:55:00-03:00", minutes: 45, tipo: "PROGRAMADO", razon: "SETUP_CAMBIO_FORMATO" },
     { start: "2025-09-02T09:30:00-03:00", end: "2025-09-02T10:05:00-03:00", minutes: 35, tipo: "NO_PROGRAMADO", razon: "ROTURA" },
+    { start: "2025-09-02T12:00:00-03:00", end: "2025-09-02T12:20:00-03:00", minutes: 20, tipo: "SIN_CLASIFICAR", razon: "SIN_CLASIFICAR" },
     // ...
   ]
 }

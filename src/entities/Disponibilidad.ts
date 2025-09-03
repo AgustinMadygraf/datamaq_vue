@@ -5,6 +5,9 @@ Ubicación: src/entities/Disponibilidad.ts
 
 export type ParoTipo = "PROGRAMADO" | "NO_PROGRAMADO"
 
+// Nuevo tipo para paro sin clasificar
+export type ParoTipoExtendido = ParoTipo | "SIN_CLASIFICAR"
+
 export type RazonParoProgramado =
   | "SETUP_CAMBIO_FORMATO"
   | "MANTENIMIENTO_PLANIFICADO"
@@ -23,12 +26,16 @@ export type RazonParoNoProgramado =
 
 export type RazonParo = RazonParoProgramado | RazonParoNoProgramado
 
+// Nueva razón para paro sin clasificar
+export type RazonParoSinClasificar = "SIN_CLASIFICAR"
+export type RazonParoExtendido = RazonParo | RazonParoSinClasificar
+
 export interface ParoEvent {
   start: string // ISO
   end: string   // ISO
   minutes: number
-  tipo: ParoTipo
-  razon: RazonParo
+  tipo: ParoTipoExtendido
+  razon: RazonParoExtendido
   notes?: string
 }
 
@@ -38,11 +45,13 @@ export interface Disponibilidad {
     operating: number
     plannedDowntime: number
     unplannedDowntime: number
+    unclassifiedDowntime?: number // nuevo campo para paro sin clasificar
   }
   availability: number // operating / minutesTotal (0..1)
   breakdown?: {
     planned?: Partial<Record<RazonParoProgramado, number>> // minutos por razón
     unplanned?: Partial<Record<RazonParoNoProgramado, number>>
+    unclassified?: number // minutos sin clasificar
   }
   events?: ParoEvent[] // opcional: para auditoría fina
 }

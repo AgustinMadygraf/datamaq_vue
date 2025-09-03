@@ -24,7 +24,6 @@
       <ul class="mb-0 small mt-2">
         <li>
           “Falta de ventas / sin orden de trabajo”: por defecto se considera <strong>programado</strong>.
-          Si decidís excluirlo del denominador OEE, mantené la convención consistente y documentada.
         </li>
         <li>
           “Cambio de formato” se registra como <strong>programado</strong> (SMED); si fue emergente, documentar la excepción.

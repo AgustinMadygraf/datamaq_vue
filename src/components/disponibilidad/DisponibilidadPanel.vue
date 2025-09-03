@@ -9,8 +9,8 @@ Path: src/components/disponibilidad//DisponibilidadPanel.vue
       <div v-if="loading">Cargando...</div>
       <div v-else-if="error">Error: {{ error }}</div>
       <template v-else>
-        <highcharts :options="chartDonut" class="mb-3" />
-        <highcharts :options="chartRazones" />
+    <highcharts :options="chartDonut" class="mb-3" />
+    <highcharts :options="chartRazones" />
       </template>
     </div>
 

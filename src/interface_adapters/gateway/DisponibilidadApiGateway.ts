@@ -43,10 +43,15 @@ export async function fetchDisponibilidad(
       minutes: {
         operating: data?.minutes?.operating ?? data?.operating_minutes,
         plannedDowntime: data?.minutes?.plannedDowntime ?? data?.planned_minutes,
-        unplannedDowntime: data?.minutes?.unplannedDowntime ?? data?.unplanned_minutes
+        unplannedDowntime: data?.minutes?.unplannedDowntime ?? data?.unplanned_minutes,
+        unclassifiedDowntime: data?.minutes?.unclassifiedDowntime ?? data?.unclassified_minutes
       },
       availability,
-      breakdown: data?.breakdown,
+      breakdown: {
+        planned: data?.breakdown?.planned,
+        unplanned: data?.breakdown?.unplanned,
+        unclassified: data?.breakdown?.unclassified
+      },
       events: data?.events
     }
 
