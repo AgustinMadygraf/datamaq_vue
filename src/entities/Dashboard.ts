@@ -9,8 +9,9 @@ export interface DashboardMeta {
   [key: string]: unknown
 }
 
+
 export interface DashboardSeries {
-  name: string
+  name: 'hoy' | 'ayer' | 'semana_anterior'
   data: number[]
   [key: string]: unknown
 }
@@ -20,9 +21,17 @@ export interface DashboardFeature {
   value: string | number
 }
 
+
+
+export interface DashboardSeriesMap {
+  hoy: DashboardSeries
+  ayer: DashboardSeries
+  semana_anterior: DashboardSeries
+}
+
 export interface Dashboard {
   meta: DashboardMeta
-  series: DashboardSeries[]
+  series: DashboardSeriesMap
   features?: DashboardFeature[]
   producto?: string
 }
