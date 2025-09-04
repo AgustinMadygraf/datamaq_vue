@@ -23,13 +23,13 @@ Estandarizar el formato de respuesta del endpoint `/api/v1/dashboard` para sopor
   },
   "series": {
     "hoy": {
-      "data": [valor1, valor2, ..., valor24]
+      "data": [valor1, valor2, ..., valor288]
     },
     "ayer": {
-      "data": [valor1, valor2, ..., valor24]
+      "data": [valor1, valor2, ..., valor288]
     },
     "semana_anterior": {
-      "data": [valor1, valor2, ..., valor24]
+      "data": [valor1, valor2, ..., valor288]
     }
   },
   "features": [
@@ -58,11 +58,11 @@ Estandarizar el formato de respuesta del endpoint `/api/v1/dashboard` para sopor
 | `meta.date` | String (YYYY-MM-DD) | Fecha de referencia | Sí |
 | `series` | Objeto | Contiene las tres series temporales | Sí |
 | `series.hoy` | Objeto | Datos del día actual | Sí |
-| `series.hoy.data` | Array[24] | 24 valores numéricos (uno por hora, 00:00 a 23:00) | Sí |
+| `series.hoy.data` | Array[288] | 288 valores numéricos (uno por cada intervalo de 5 minutos, 00:00 a 23:55) | Sí |
 | `series.ayer` | Objeto | Datos del día anterior | Sí |
-| `series.ayer.data` | Array[24] | 24 valores numéricos (uno por hora, 00:00 a 23:00) | Sí |
+| `series.ayer.data` | Array[288] | 288 valores numéricos (uno por cada intervalo de 5 minutos, 00:00 a 23:55) | Sí |
 | `series.semana_anterior` | Objeto | Datos del mismo día de la semana anterior | Sí |
-| `series.semana_anterior.data` | Array[24] | 24 valores numéricos (uno por hora, 00:00 a 23:00) | Sí |
+| `series.semana_anterior.data` | Array[288] | 288 valores numéricos (uno por cada intervalo de 5 minutos, 00:00 a 23:55) | Sí |
 | `features` | Array | Métricas adicionales (opcional) | No |
 | `producto` | Objeto | Información del producto (opcional) | No |
 
@@ -76,7 +76,7 @@ from pydantic import BaseModel, Field
 from datetime import date
 
 class SeriesData(BaseModel):
-    data: List[float] = Field(..., min_items=24, max_items=24, description="24 valores por hora")
+    data: List[float] = Field(..., min_items=288, max_items=288, description="288 valores por día (cada 5 minutos)")
 
 class Feature(BaseModel):
     key: str
@@ -93,9 +93,9 @@ class ProductoInfo(BaseModel):
 class DashboardResponse(BaseModel):
     meta: DashboardMeta
     series: Dict[str, SeriesData] = Field(..., example={
-        "hoy": {"data": [0]*24},
-        "ayer": {"data": [0]*24},
-        "semana_anterior": {"data": [0]*24}
+        "hoy": {"data": [0]*288},
+        "ayer": {"data": [0]*288},
+        "semana_anterior": {"data": [0]*288}
     })
     features: List[Feature] = []
     producto: Dict[str, Any] = {}
@@ -125,13 +125,13 @@ async def get_dashboard():
         },
         "series": {
             "hoy": {
-                "data": [float(x) for x in np.random.randint(50, 100, 24)]
+                "data": [float(x) for x in np.random.randint(50, 100, 288)]
             },
             "ayer": {
-                "data": [float(x) for x in np.random.randint(40, 90, 24)]
+                "data": [float(x) for x in np.random.randint(40, 90, 288)]
             },
             "semana_anterior": {
-                "data": [float(x) for x in np.random.randint(30, 80, 24)]
+                "data": [float(x) for x in np.random.randint(30, 80, 288)]
             }
         },
         "features": [
@@ -147,25 +147,25 @@ async def get_dashboard():
 
 ## 4. Notas importantes para la implementación
 
-1. **Arrays de 24 elementos:** Cada serie (`hoy`, `ayer`, `semana_anterior`) **debe** contener exactamente 24 valores numéricos, representando cada hora del día (00:00 a 23:00).
+1. **Arrays de 288 elementos:** Cada serie (`hoy`, `ayer`, `semana_anterior`) **debe** contener exactamente 288 valores numéricos, representando cada intervalo de 5 minutos del día (00:00 a 23:55).
 
-2. **Datos parciales:** Para la serie `hoy`, si aún no se han registrado datos para todas las horas, completar con `null` o `0` las horas futuras.
+2. **Datos parciales:** Para la serie `hoy`, si aún no se han registrado datos para todos los intervalos, completar con `null` o `0` los intervalos futuros.
 
 3. **Consistencia en los nombres de las claves:** Usar exactamente `"hoy"`, `"ayer"`, y `"semana_anterior"` como claves dentro del objeto `series`.
 
-4. **Validación:** El endpoint debe validar que cada serie tenga exactamente 24 valores antes de enviar la respuesta.
+4. **Validación:** El endpoint debe validar que cada serie tenga exactamente 288 valores antes de enviar la respuesta.
 
 ## 5. Casos de prueba
 
 ### Caso 1: Día completo
-- Datos para las 24 horas en las tres series.
+- Datos para los 288 intervalos en las tres series.
 
 ### Caso 2: Día parcial
-- Serie `hoy` con datos hasta la hora actual, resto nulos.
+- Serie `hoy` con datos hasta el intervalo actual, resto nulos.
 - Series `ayer` y `semana_anterior` completas.
 
 ### Caso 3: Sin datos para alguna serie
-- Si no hay datos para alguna serie, enviar array de 24 ceros o nulos, pero mantener la estructura.
+- Si no hay datos para alguna serie, enviar array de 288 ceros o nulos, pero mantener la estructura.
 
 ## 6. Depuración
 
@@ -178,9 +178,9 @@ async def test_dashboard():
     return {
         "meta": {"title": "Test Dashboard", "date": "2025-09-04"},
         "series": {
-            "hoy": {"data": [i*5 for i in range(24)]},
-            "ayer": {"data": [i*4 for i in range(24)]},
-            "semana_anterior": {"data": [i*3 for i in range(24)]}
+            "hoy": {"data": [i*5 for i in range(288)]},
+            "ayer": {"data": [i*4 for i in range(288)]},
+            "semana_anterior": {"data": [i*3 for i in range(288)]}
         }
     }
 ```

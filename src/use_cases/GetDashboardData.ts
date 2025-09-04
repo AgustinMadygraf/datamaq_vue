@@ -61,10 +61,15 @@ export async function getDashboardData(): Promise<Dashboard> {
   // Si el formato es array de objetos por hora (histórico), construir las tres series
   function buildSeriesFromHourly(rawSeries: any[]): { hoy: DashboardSeries; ayer: DashboardSeries; semana_anterior: DashboardSeries } {
     // Suponiendo que cada objeto tiene t (timestamp), hr_counter1, hr_counter2, etc.
-    // Para demo, asignamos todos los hr_counter1 a 'hoy', hr_counter2 a 'ayer', y la suma a 'semana_anterior'
-    const hoyData = rawSeries.map((item: any) => item.hr_counter1 ?? null)
-    const ayerData = rawSeries.map((item: any) => item.hr_counter2 ?? null)
-    const semanaAnteriorData = rawSeries.map((item: any) => ((item.hr_counter1 ?? 0) + (item.hr_counter2 ?? 0)) || null)
+    // Para granularidad de 5 minutos, se esperan 288 elementos
+    const hoyData = Array(288).fill(null)
+    const ayerData = Array(288).fill(null)
+    const semanaAnteriorData = Array(288).fill(null)
+    for (let i = 0; i < Math.min(rawSeries.length, 288); i++) {
+      hoyData[i] = rawSeries[i]?.hr_counter1 ?? null
+      ayerData[i] = rawSeries[i]?.hr_counter2 ?? null
+      semanaAnteriorData[i] = ((rawSeries[i]?.hr_counter1 ?? 0) + (rawSeries[i]?.hr_counter2 ?? 0)) || null
+    }
     return {
       hoy: { name: 'hoy', data: hoyData },
       ayer: { name: 'ayer', data: ayerData },
@@ -76,14 +81,21 @@ export async function getDashboardData(): Promise<Dashboard> {
   function findSeries(name: 'hoy' | 'ayer' | 'semana_anterior'): DashboardSeries {
     if (Array.isArray(raw?.series) && raw.series.length && raw.series[0].name) {
       const serie = raw.series.find((s: any) => s.name === name)
+      // Normalizar a 288 valores
+      const data = Array(288).fill(null)
+      if (Array.isArray(serie?.data)) {
+        for (let i = 0; i < Math.min(serie.data.length, 288); i++) {
+          data[i] = serie.data[i]
+        }
+      }
       return {
         name,
-        data: Array.isArray(serie?.data) ? serie.data : [],
+        data,
         ...serie
       }
     }
     // Si no existe, devolver vacío
-    return { name, data: [] }
+    return { name, data: Array(288).fill(null) }
   }
 
   let series: { hoy: DashboardSeries; ayer: DashboardSeries; semana_anterior: DashboardSeries }

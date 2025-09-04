@@ -9,22 +9,23 @@ Path: src/interface_adapters/presenter/ChartPresenter.ts
  */
 export function formatChartOptions(raw: any): Record<string, unknown> {
   try {
-    // Generar categorías de hora: 00:00 a 23:59
-    const categories = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`)
+    // Generar categorías de 5 minutos: 00:00, 00:05, ..., 23:55
+    const categories = Array.from({ length: 288 }, (_, i) => {
+      const h = Math.floor(i / 12).toString().padStart(2, '0')
+      const m = ((i % 12) * 5).toString().padStart(2, '0')
+      return `${h}:${m}`
+    })
 
-    // Helper para obtener serie por nombre
+    // Helper para obtener serie por nombre y normalizar a 288 valores
     function getSeriesData(name: 'hoy' | 'ayer' | 'semana_anterior'): number[] {
-      // Obtener la serie del objeto por propiedad
       const serie = raw?.series?.[name]
-      // Si la serie existe y tiene datos, normalizar a 24 valores (rellenar con null si faltan)
+      const data = Array(288).fill(null)
       if (serie && Array.isArray(serie.data)) {
-        const data = Array(24).fill(null)
-        for (let i = 0; i < Math.min(serie.data.length, 24); i++) {
+        for (let i = 0; i < Math.min(serie.data.length, 288); i++) {
           data[i] = serie.data[i]
         }
-        return data
       }
-      return Array(24).fill(null)
+      return data
     }
 
     // Definir las tres series con colores y etiquetas
@@ -57,7 +58,7 @@ export function formatChartOptions(raw: any): Record<string, unknown> {
 
     return {
       chart: { type: 'line' },
-      title: { text: 'Producción por hora (24h)' },
+      title: { text: 'Producción cada 5 minutos (24h)' },
       xAxis: {
         categories,
         title: { text: 'Hora' }
