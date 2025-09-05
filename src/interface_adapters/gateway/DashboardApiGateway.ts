@@ -6,9 +6,21 @@ Path: src/interface_adapters/gateway/DashboardApiGateway.ts
 import { API_ENDPOINTS } from '../../infrastructure/config'
 import { historicalDashboardData } from '../../infrastructure/HistoricalDashboardData'
 
-export async function fetchDashboardData(): Promise<any> {
+import type { DashboardQueryParams } from '../../entities/DashboardQueryParams'
+import { isValidDashboardQueryParams } from '../../entities/DashboardQueryParams'
+
+export async function fetchDashboardData(params: DashboardQueryParams): Promise<any> {
   try {
-    const response = await fetch(API_ENDPOINTS.DASHBOARD)
+    // Validar parámetros antes de construir la URL
+    if (!isValidDashboardQueryParams(params)) {
+      throw new Error('[DashboardApiGateway] Parámetros de consulta inválidos: ' + JSON.stringify(params))
+    }
+    // Construir query string
+    const url = new URL(API_ENDPOINTS.DASHBOARD, window.location.origin)
+    url.searchParams.set('fecha', params.fecha)
+    url.searchParams.set('turno', params.turno)
+
+    const response = await fetch(url.toString())
     if (!response.ok) throw new Error('Error al obtener datos del dashboard')
     const data = await response.json()
 

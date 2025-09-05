@@ -3,28 +3,45 @@ Path: src/interface_adapters/controller/DashboardController.ts
 */
 
 
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { getDashboardData } from '../../use_cases/GetDashboardData'
 import { formatChartOptions } from '../presenter/ChartPresenter'
+import type { DashboardQueryParams } from '../../entities/DashboardQueryParams'
 
 // El presentador ahora se encarga de transformar los datos en opciones para el gráfico
 
-export function useDashboardController() {
+export function useDashboardController(initialParams?: Partial<DashboardQueryParams>) {
   const dashboard = ref<any>(null)
   const chartOptions = ref<Record<string, unknown> | null>(null)
-  const loading = ref(true)
+  const loading = ref(false)
   const error = ref<unknown>(null)
 
-  onMounted(async () => {
+  // Estado reactivo para los parámetros
+  const params = ref<DashboardQueryParams>({
+    fecha: initialParams?.fecha || new Date().toISOString().slice(0, 10),
+    turno: initialParams?.turno || 'central'
+  })
+
+  async function fetchData() {
+    loading.value = true
+    error.value = null
     try {
-      dashboard.value = await getDashboardData()
-  chartOptions.value = formatChartOptions(dashboard.value)
+      dashboard.value = await getDashboardData(params.value)
+      chartOptions.value = formatChartOptions(dashboard.value)
     } catch (e) {
-      error.value = e
+      error.value = e instanceof Error ? e.message : e
     } finally {
       loading.value = false
     }
-  })
+  }
 
-  return { dashboard, chartOptions, loading, error }
+  // Refrescar datos cuando cambian los parámetros
+  watch(params, fetchData, { immediate: true, deep: true })
+
+  // Método para actualizar los parámetros desde la UI
+  function updateParams(newParams: Partial<DashboardQueryParams>) {
+    params.value = { ...params.value, ...newParams }
+  }
+
+  return { dashboard, chartOptions, loading, error, params, updateParams }
 }
