@@ -9,13 +9,10 @@ import type { DashboardQueryParams } from '../entities/DashboardQueryParams'
 export async function getDashboardData(params: DashboardQueryParams): Promise<Dashboard> {
   const raw = await fetchDashboardData(params)
   try {
-    console.info('[GetDashboardData] Datos crudos recibidos del gateway:', raw)
     let series: { hoy: DashboardSeries; ayer: DashboardSeries; semana_anterior: DashboardSeries }
     if (Array.isArray(raw?.series) && raw.series.length && raw.series[0].t) {
-      console.debug('[GetDashboardData] Transformando formato histórico por hora.')
       series = buildSeriesFromHourly(raw.series)
     } else {
-      console.debug('[GetDashboardData] Transformando formato series con nombre.')
       series = {
         hoy: findSeries('hoy'),
         ayer: findSeries('ayer'),
@@ -38,7 +35,6 @@ export async function getDashboardData(params: DashboardQueryParams): Promise<Da
         : [],
       producto: raw?.producto ?? ''
     }
-    console.info('[GetDashboardData] Entidad Dashboard generada:', dashboard)
     return dashboard
   } catch (err) {
     console.error('Error al transformar los datos del dashboard:', err)
@@ -76,9 +72,17 @@ export async function getDashboardData(params: DashboardQueryParams): Promise<Da
 
   // Si el formato es array de series con nombre, usar el mapeo original
   function findSeries(name: 'hoy' | 'ayer' | 'semana_anterior'): DashboardSeries {
+    // Soporta formato objeto (series: { hoy: {data: [...]}, ... })
+    if (raw?.series && raw.series[name] && Array.isArray(raw.series[name].data)) {
+      return {
+        name,
+        data: raw.series[name].data,
+        ...raw.series[name]
+      }
+    }
+    // Formato array de series con nombre (legacy)
     if (Array.isArray(raw?.series) && raw.series.length && raw.series[0].name) {
       const serie = raw.series.find((s: any) => s.name === name)
-      // Normalizar a 288 valores
       const data = Array(288).fill(null)
       if (Array.isArray(serie?.data)) {
         for (let i = 0; i < Math.min(serie.data.length, 288); i++) {

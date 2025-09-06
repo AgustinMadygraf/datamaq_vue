@@ -5,6 +5,7 @@ Description: Endpoint de prueba para el dashboard. Devuelve datos simulados.
 */
 
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
 
 // Leer parámetros GET
 $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');

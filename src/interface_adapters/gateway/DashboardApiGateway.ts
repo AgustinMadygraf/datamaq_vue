@@ -24,8 +24,6 @@ export async function fetchDashboardData(params: DashboardQueryParams): Promise<
     if (!response.ok) throw new Error('Error al obtener datos del dashboard')
     const data = await response.json()
 
-    console.info('[DashboardApiGateway] Datos recibidos de la API:', data)
-
     // Validación: debe haber series 'hoy', 'ayer', 'semana_anterior' y cada una debe tener 288 valores
     let valid = false
     if (data.series && typeof data.series === 'object') {
@@ -45,7 +43,6 @@ export async function fetchDashboardData(params: DashboardQueryParams): Promise<
       return historicalDashboardData
     }
 
-    console.info('[DashboardApiGateway] Datos validados correctamente (288 valores por serie), se pasan al use case.')
     return data
   } catch (e) {
     // Fallback: retorna datos históricos si falla la conexión
