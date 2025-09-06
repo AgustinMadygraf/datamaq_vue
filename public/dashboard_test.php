@@ -74,6 +74,9 @@ $response = [
     "series" => $series,
     "features" => [],
     "producto" => "Test Producto",
+    "velocidad" => 100,
+    "formato" => "22 x 10 x30",
+    "anchoBobina" => 690,
     "debug_params" => ["fecha" => $fecha, "turno" => $turno]
 ];
 

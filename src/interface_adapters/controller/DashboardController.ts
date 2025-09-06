@@ -24,9 +24,9 @@ export function useDashboardController(initialParams?: Partial<DashboardQueryPar
 
   async function fetchData() {
     loading.value = true
-    error.value = null
     try {
-      dashboard.value = await getDashboardData(params.value)
+      const data = await getDashboardData(params.value)
+      dashboard.value = data
       chartOptions.value = formatChartOptions(dashboard.value)
     } catch (e) {
       error.value = e instanceof Error ? e.message : e

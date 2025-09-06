@@ -3,6 +3,7 @@ Path: src/components/produccion/DataMaqPanel.vue
 -->
 
 <script setup lang="ts">
+import { computed } from "vue"
 import InfoDisplay from "./InfoDisplay.vue"
 import Dashboard from "./Dashboard.vue"
 import Botonera from "./Botonera.vue"
@@ -11,8 +12,7 @@ import { useDashboardController } from "../../interface_adapters/controller/Dash
 import { getInfoDisplayProps } from "../../interface_adapters/presenter/DataMaqPanelPresenter"
 
 const { dashboard, loading } = useDashboardController()
-// Aseguro que infoDisplayProps sea un computed
-const infoDisplayProps = getInfoDisplayProps(dashboard.value)
+const infoDisplayProps = computed(() => getInfoDisplayProps(dashboard.value))
 </script>
 
 <template>

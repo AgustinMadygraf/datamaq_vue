@@ -33,7 +33,10 @@ export async function getDashboardData(params: DashboardQueryParams): Promise<Da
             value: f.value ?? ''
           }))
         : [],
-      producto: raw?.producto ?? ''
+      producto: raw?.producto ?? '',
+      velocidad: raw?.velocidad ?? '',
+      formato: raw?.formato ?? '',
+      anchoBobina: raw?.anchoBobina ?? ''
     }
     return dashboard
   } catch (err) {
@@ -125,7 +128,10 @@ export async function getDashboardData(params: DashboardQueryParams): Promise<Da
           value: f.value ?? ''
         }))
       : [],
-    producto: raw?.producto ?? ''
+    producto: raw?.producto ?? '',
+    velocidad: raw?.velocidad ?? '',
+    formato: raw?.formato ?? '',
+    anchoBobina: raw?.anchoBobina ?? ''
   }
   return dashboard
 }

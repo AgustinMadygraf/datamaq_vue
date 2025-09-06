@@ -42,4 +42,7 @@ export interface Dashboard {
   series: DashboardSeriesMap
   features?: DashboardFeature[]
   producto?: string
+  velocidad?: number | string
+  formato?: string
+  anchoBobina?: number | string
 }
