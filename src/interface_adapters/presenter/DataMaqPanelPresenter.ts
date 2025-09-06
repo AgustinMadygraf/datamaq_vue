@@ -6,8 +6,6 @@ Responsabilidad: Transformar los datos del dashboard en props listos para la UI 
 import type { Dashboard } from '../../entities/Dashboard'
 
 export function getInfoDisplayProps(dashboard: Dashboard | null) {
-  console.log('getInfoDisplayProps dashboard:', dashboard) // <-- AGREGAR ESTO
-  // Si existen los campos directos, usalos
   const velocidad =
     dashboard?.velocidad?.toString() ??
     dashboard?.features?.find(f => f.key === 'velocidad_ultima_bpm')?.value?.toString() ??

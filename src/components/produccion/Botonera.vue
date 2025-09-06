@@ -6,17 +6,17 @@ Path: src/components/Botonera.vue
   <div class="botonera-flex">
     <div class="botonera-group">
       <label for="turno-select" class="botonera-label">Turno:</label>
-      <select id="turno-select" v-model="turno" @change="emitChange" class="botonera-select">
-        <option value="central">Central (8 a 16)</option>
-        <option value="manana">Mañana (06 a 14)</option>
-        <option value="tarde">Tarde (14 a 22)</option>
-        <option value="dia">Día (06 a 22)</option>
-        <option value="completo">Completo (0 a 24)</option>
+      <select id="turno-select" v-model="turno" class="botonera-select" @change="emitChange">
+        <option value="central">Central (08-16)</option>
+        <option value="manana">Mañana (06-14)</option>
+        <option value="tarde">Tarde (14-22)</option>
+        <option value="dia">Día (06-22)</option>
+        <option value="completo">Completo (00-24)</option>
       </select>
     </div>
     <div class="botonera-group">
-      <label for="fecha-select" class="botonera-label">Fecha:</label>
-      <input id="fecha-select" type="date" v-model="fecha" @change="emitChange" class="botonera-input"/>
+      <label for="fecha-input" class="botonera-label">Fecha:</label>
+      <input id="fecha-input" type="date" v-model="fecha" class="botonera-input" @change="emitChange" />
     </div>
   </div>
 </template>

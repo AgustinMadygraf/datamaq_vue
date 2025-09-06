@@ -24,12 +24,14 @@ export function useDashboardController(initialParams?: Partial<DashboardQueryPar
 
   async function fetchData() {
     loading.value = true
+    error.value = null
     try {
       const data = await getDashboardData(params.value)
       dashboard.value = data
-      chartOptions.value = formatChartOptions(dashboard.value)
-    } catch (e) {
-      error.value = e instanceof Error ? e.message : e
+      // Pasa el turno a formatChartOptions
+      chartOptions.value = formatChartOptions(data, params.value.turno)
+    } catch (err) {
+      error.value = err
     } finally {
       loading.value = false
     }
