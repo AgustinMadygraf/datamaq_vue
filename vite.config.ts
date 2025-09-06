@@ -8,13 +8,5 @@ import vue from '@vitejs/plugin-vue'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  base: './', 
-  server: {
-    proxy: {
-      '/datamaq_php/backend/api/v1/': {
-        target: 'http://127.0.0.1:80', 
-        changeOrigin: true,
-      }
-    }
-  }
+  base: '/datamaq_vue/dist/',
 })

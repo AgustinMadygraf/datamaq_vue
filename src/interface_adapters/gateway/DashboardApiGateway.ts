@@ -17,6 +17,7 @@ export async function fetchDashboardData(params: DashboardQueryParams): Promise<
     }
     // Construir query string
     const url = new URL(API_ENDPOINTS.DASHBOARD, window.location.origin)
+    url.searchParams.set('periodo', 'dia')
     url.searchParams.set('fecha', params.fecha)
     url.searchParams.set('turno', params.turno)
 

@@ -18,7 +18,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/datamaq_vue/dist/'), // <-- Agrega el base aquí
   routes,
 });
 
