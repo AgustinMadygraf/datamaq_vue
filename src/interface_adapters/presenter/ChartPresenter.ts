@@ -25,6 +25,11 @@ function getTurnoRange(turno: string): [number, number] {
  */
 export function formatChartOptions(raw: any, turno: string = 'central'): Record<string, unknown> {
   try {
+    if (!raw) {
+      console.warn('formatChartOptions: raw data es null o undefined')
+    }
+    // Agrega este log para ver el contenido real de raw
+    console.log('[formatChartOptions] raw:', raw)
     const [start, end] = getTurnoRange(turno)
     // Generar categorías de 5 minutos solo para el rango del turno
     const categories = Array.from({ length: end - start + 1 }, (_, i) => {
@@ -75,9 +80,25 @@ export function formatChartOptions(raw: any, turno: string = 'central'): Record<
       }
     ]
 
+    // Extraer fecha desde raw.meta.date o raw.date
+    // Extraer fecha y formatear a dd-mm-yyyy
+    let fechaTitulo = raw?.meta?.date || raw?.date
+    if (fechaTitulo && /^\d{4}-\d{2}-\d{2}/.test(fechaTitulo)) {
+      const dateObj = new Date(fechaTitulo)
+      dateObj.setDate(dateObj.getDate() + 1) // Sumar 1 día
+      const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+      const meses = [
+      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+      ]
+      fechaTitulo = `${dias[dateObj.getDay()]} ${dateObj.getDate()} de ${meses[dateObj.getMonth()]} del ${dateObj.getFullYear()}`
+    }
+
     return {
       chart: { type: 'line' },
-      title: { text: 'Producción cada 5 minutos' },
+      title: { 
+        text: fechaTitulo
+      },
       xAxis: {
         categories,
         title: { text: 'Hora' }
