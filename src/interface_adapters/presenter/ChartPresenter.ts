@@ -55,9 +55,9 @@ export function formatChartOptions(raw: any, turno: string = 'central'): Record<
     // Definir las tres series con colores y etiquetas
     const series = [
       {
-        type: 'line',
+        type: 'spline', // Cambia de 'line' a 'spline'
         name: 'Hoy',
-        color: '#d32f2f', // rojo
+        color: '#d32f2f',
         data: getSeriesData('hoy'),
         dashStyle: 'Solid',
         marker: { enabled: true, symbol: 'circle', fillColor: '#d32f2f' }
@@ -65,7 +65,7 @@ export function formatChartOptions(raw: any, turno: string = 'central'): Record<
       {
         type: 'line',
         name: 'Ayer',
-        color: '#81c784', // verde claro
+        color: '#81c784',
         data: getSeriesData('ayer'),
         dashStyle: 'ShortDash',
         marker: { enabled: true, symbol: 'circle', fillColor: '#81c784' }
@@ -73,7 +73,7 @@ export function formatChartOptions(raw: any, turno: string = 'central'): Record<
       {
         type: 'line',
         name: 'Semana anterior',
-        color: '#283593', // azul marino
+        color: '#283593',
         data: getSeriesData('semana_anterior'),
         dashStyle: 'Dot',
         marker: { enabled: true, symbol: 'circle', fillColor: '#283593' }
