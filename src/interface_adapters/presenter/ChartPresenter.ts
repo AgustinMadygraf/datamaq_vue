@@ -80,24 +80,13 @@ export function formatChartOptions(raw: any, turno: string = 'central'): Record<
       }
     ]
 
-    // Extraer fecha desde raw.meta.date o raw.date
-    // Extraer fecha y formatear a dd-mm-yyyy
-    let fechaTitulo = raw?.meta?.date || raw?.date
-    if (fechaTitulo && /^\d{4}-\d{2}-\d{2}/.test(fechaTitulo)) {
-      const dateObj = new Date(fechaTitulo)
-      dateObj.setDate(dateObj.getDate() + 1) // Sumar 1 día
-      const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-      const meses = [
-      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
-      ]
-      fechaTitulo = `${dias[dateObj.getDay()]} ${dateObj.getDate()} de ${meses[dateObj.getMonth()]} del ${dateObj.getFullYear()}`
-    }
+    // Extraer título desde el backend
+    const chartTitle = raw?.meta?.title || raw?.title || 'Producción cada 5 minutos'
 
     return {
       chart: { type: 'line' },
       title: { 
-        text: fechaTitulo
+        text: chartTitle
       },
       xAxis: {
         categories,
