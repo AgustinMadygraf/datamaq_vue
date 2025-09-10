@@ -16,7 +16,14 @@ Path: src/components/Botonera.vue
     </div>
     <div class="botonera-group">
       <label for="fecha-input" class="botonera-label">Fecha:</label>
-      <input id="fecha-input" type="date" v-model="fecha" class="botonera-input" @change="emitChange" />
+      <input
+        id="fecha-input"
+        type="date"
+        v-model="fecha"
+        class="botonera-input"
+        @change="emitChange"
+        :max="hoy"
+      />
     </div>
   </div>
 </template>
@@ -46,13 +53,43 @@ Path: src/components/Botonera.vue
 </style>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const turno = ref('central')
 const fecha = ref(new Date().toISOString().slice(0, 10))
+const hoy = new Date().toISOString().slice(0, 10)
 const emit = defineEmits(['update:params'])
 
 function emitChange() {
-  emit('update:params', { turno: turno.value, fecha: fecha.value })
+  try {
+    const hoyDate = new Date(hoy)
+    const fechaDate = new Date(fecha.value)
+    if (fechaDate > hoyDate) {
+      console.warn('[Botonera] Fecha seleccionada es futura, corrigiendo a hoy:', hoy)
+      fecha.value = hoy
+    }
+    console.log('[Botonera] Cambio de turno o fecha:', { turno: turno.value, fecha: fecha.value })
+    if (!turno.value || !fecha.value) {
+      console.warn('[Botonera] Turno o fecha no definidos', { turno: turno.value, fecha: fecha.value })
+    }
+    emit('update:params', { turno: turno.value, fecha: fecha.value })
+  } catch (err) {
+    console.error('[Botonera] Error al emitir cambio de parámetros:', err)
+  }
 }
+
+watch(fecha, (newVal) => {
+  try {
+    const hoyDate = new Date(hoy)
+    const fechaDate = new Date(newVal)
+    if (fechaDate > hoyDate) {
+      console.warn('[Botonera][watch] Fecha futura detectada, corrigiendo a hoy:', hoy)
+      fecha.value = hoy
+    }
+  } catch (err) {
+    console.error('[Botonera][watch] Error al validar fecha:', err)
+  }
+})
+
+console.log('[Botonera] hoy:', hoy)
 </script>
